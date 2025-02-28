@@ -122,7 +122,7 @@ export const addProduct = (product: Omit<AdminProduct, 'id'>): AdminProduct => {
   adminData.products.push(newProduct);
   saveAdminData(adminData);
   
-  toast.success('Sản phẩm đã được thêm thành công');
+  toast.success('Product added successfully');
   return newProduct;
 };
 
@@ -137,11 +137,11 @@ export const updateProduct = (id: string, updates: Partial<AdminProduct>): Admin
       updatedAt: new Date().toISOString() // Set the updatedAt property
     };
     saveAdminData(adminData);
-    toast.success('Sản phẩm đã được cập nhật thành công');
+    toast.success('Product updated successfully');
     return adminData.products[index];
   }
   
-  toast.error('Không tìm thấy sản phẩm');
+  toast.error('Product not found');
   throw new Error('Product not found');
 };
 
@@ -152,11 +152,11 @@ export const deleteProduct = (id: string): void => {
   if (index !== -1) {
     adminData.products.splice(index, 1);
     saveAdminData(adminData);
-    toast.success('Sản phẩm đã được xóa thành công');
+    toast.success('Product deleted successfully');
     return;
   }
   
-  toast.error('Không tìm thấy sản phẩm');
+  toast.error('Product not found');
   throw new Error('Product not found');
 };
 
@@ -184,7 +184,7 @@ export const addPage = (page: Omit<Page, 'id' | 'createdAt' | 'updatedAt'>): Pag
   adminData.pages.push(newPage);
   saveAdminData(adminData);
   
-  toast.success('Trang đã được thêm thành công');
+  toast.success('Page added successfully');
   return newPage;
 };
 
@@ -199,11 +199,11 @@ export const updatePage = (id: string, updates: Partial<Page>): Page => {
       updatedAt: new Date().toISOString()
     };
     saveAdminData(adminData);
-    toast.success('Trang đã được cập nhật thành công');
+    toast.success('Page updated successfully');
     return adminData.pages[index];
   }
   
-  toast.error('Không tìm thấy trang');
+  toast.error('Page not found');
   throw new Error('Page not found');
 };
 
@@ -214,11 +214,11 @@ export const deletePage = (id: string): void => {
   if (index !== -1) {
     adminData.pages.splice(index, 1);
     saveAdminData(adminData);
-    toast.success('Trang đã được xóa thành công');
+    toast.success('Page deleted successfully');
     return;
   }
   
-  toast.error('Không tìm thấy trang');
+  toast.error('Page not found');
   throw new Error('Page not found');
 };
 
@@ -246,7 +246,7 @@ export const addPost = (post: Omit<Post, 'id' | 'createdAt' | 'updatedAt'>): Pos
   adminData.posts.push(newPost);
   saveAdminData(adminData);
   
-  toast.success('Bài viết đã được thêm thành công');
+  toast.success('Post added successfully');
   return newPost;
 };
 
@@ -261,11 +261,11 @@ export const updatePost = (id: string, updates: Partial<Post>): Post => {
       updatedAt: new Date().toISOString()
     };
     saveAdminData(adminData);
-    toast.success('Bài viết đã được cập nhật thành công');
+    toast.success('Post updated successfully');
     return adminData.posts[index];
   }
   
-  toast.error('Không tìm thấy bài viết');
+  toast.error('Post not found');
   throw new Error('Post not found');
 };
 
@@ -276,11 +276,11 @@ export const deletePost = (id: string): void => {
   if (index !== -1) {
     adminData.posts.splice(index, 1);
     saveAdminData(adminData);
-    toast.success('Bài viết đã được xóa thành công');
+    toast.success('Post deleted successfully');
     return;
   }
   
-  toast.error('Không tìm thấy bài viết');
+  toast.error('Post not found');
   throw new Error('Post not found');
 };
 
@@ -308,7 +308,7 @@ export const addBanner = (banner: Omit<Banner, 'id' | 'createdAt' | 'updatedAt'>
   adminData.banners.push(newBanner);
   saveAdminData(adminData);
   
-  toast.success('Banner đã được thêm thành công');
+  toast.success('Banner added successfully');
   return newBanner;
 };
 
@@ -323,11 +323,11 @@ export const updateBanner = (id: string, updates: Partial<Banner>): Banner => {
       updatedAt: new Date().toISOString()
     };
     saveAdminData(adminData);
-    toast.success('Banner đã được cập nhật thành công');
+    toast.success('Banner updated successfully');
     return adminData.banners[index];
   }
   
-  toast.error('Không tìm thấy banner');
+  toast.error('Banner not found');
   throw new Error('Banner not found');
 };
 
@@ -338,11 +338,11 @@ export const deleteBanner = (id: string): void => {
   if (index !== -1) {
     adminData.banners.splice(index, 1);
     saveAdminData(adminData);
-    toast.success('Banner đã được xóa thành công');
+    toast.success('Banner deleted successfully');
     return;
   }
   
-  toast.error('Không tìm thấy banner');
+  toast.error('Banner not found');
   throw new Error('Banner not found');
 };
 
@@ -367,7 +367,7 @@ export const addHomepageSection = (section: Omit<HomepageSection, 'id'>): Homepa
   adminData.homepageSections.push(newSection);
   saveAdminData(adminData);
   
-  toast.success('Phần trang chủ đã được thêm thành công');
+  toast.success('Homepage section added successfully');
   return newSection;
 };
 
@@ -381,11 +381,11 @@ export const updateHomepageSection = (id: string, updates: Partial<HomepageSecti
       ...updates
     };
     saveAdminData(adminData);
-    toast.success('Phần trang chủ đã được cập nhật thành công');
+    toast.success('Homepage section updated successfully');
     return adminData.homepageSections[index];
   }
   
-  toast.error('Không tìm thấy phần trang chủ');
+  toast.error('Homepage section not found');
   throw new Error('Homepage section not found');
 };
 
@@ -396,25 +396,85 @@ export const deleteHomepageSection = (id: string): void => {
   if (index !== -1) {
     adminData.homepageSections.splice(index, 1);
     saveAdminData(adminData);
-    toast.success('Phần trang chủ đã được xóa thành công');
+    toast.success('Homepage section deleted successfully');
     return;
   }
   
-  toast.error('Không tìm thấy phần trang chủ');
+  toast.error('Homepage section not found');
   throw new Error('Homepage section not found');
 };
 
-// Additional helper for automatic game image correction
+// Advanced image search functionality for more accurate game images
 export const searchGameImage = async (gameTitle: string, platform: string): Promise<string> => {
   try {
-    // In a real app, this would be an API call to a service like RAWG or similar
-    // For demo purposes, we're using a placeholder
-    toast.success('Đang tìm kiếm hình ảnh cho ' + gameTitle);
+    toast.success(`Searching image for ${gameTitle}`);
     
     // Simulate API call delay
     await new Promise(resolve => setTimeout(resolve, 1000));
     
-    // Return a placeholder based on platform
+    // Game-specific image mapping for more accurate results
+    // This simulates what would be a real API call to a game database
+    const gameImageMap: Record<string, string> = {
+      // PS5 Games
+      "Demon's Souls": "https://images.unsplash.com/photo-1621442371845-c626b70d2c0e?w=500&h=350&fit=crop",
+      "Spider-Man: Miles Morales": "https://images.unsplash.com/photo-1635805737707-575885ab0820?w=500&h=350&fit=crop",
+      "Ratchet & Clank: Rift Apart": "https://images.unsplash.com/photo-1621370115429-cf6c8f4e0f88?w=500&h=350&fit=crop",
+      "Returnal": "https://images.unsplash.com/photo-1614469723922-c043ad9fd036?w=500&h=350&fit=crop",
+      "Sackboy: A Big Adventure": "https://images.unsplash.com/photo-1577741314755-048d8525792e?w=500&h=350&fit=crop",
+      "Godfall": "https://images.unsplash.com/photo-1618478594486-c65b899c4936?w=500&h=350&fit=crop",
+      "Astro's Playroom": "https://images.unsplash.com/photo-1618252641817-c4dce44352f4?w=500&h=350&fit=crop",
+      "Call of Duty: Black Ops Cold War": "https://images.unsplash.com/photo-1605901309584-818e25960a8f?w=500&h=350&fit=crop",
+      "Assassin's Creed Valhalla": "https://images.unsplash.com/photo-1605901309584-818e25960a8f?w=500&h=350&fit=crop",
+      "NBA 2K21": "https://images.unsplash.com/photo-1518609571773-39b7d303a87b?w=500&h=350&fit=crop",
+
+      // PS4 Games
+      "The Last of Us Part II": "https://images.unsplash.com/photo-1587656649633-e6d5d4d2d98e?w=500&h=350&fit=crop",
+      "God of War": "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=500&h=350&fit=crop",
+      "Horizon Zero Dawn": "https://images.unsplash.com/photo-1575844611406-6f064b8c4f0b?w=500&h=350&fit=crop",
+      "Spider-Man": "https://images.unsplash.com/photo-1608889335941-32ac5f2041b9?w=500&h=350&fit=crop",
+      "Uncharted 4": "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=500&h=350&fit=crop",
+      "Bloodborne": "https://images.unsplash.com/photo-1573666008508-0e0974d0ae19?w=500&h=350&fit=crop",
+      "Red Dead Redemption 2": "https://images.unsplash.com/photo-1575034360942-c5ed9a4aaf18?w=500&h=350&fit=crop",
+      "Ghost of Tsushima": "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=500&h=350&fit=crop",
+      "Final Fantasy VII Remake": "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=500&h=350&fit=crop",
+      "Death Stranding": "https://images.unsplash.com/photo-1619108782895-a6e8c6a599a8?w=500&h=350&fit=crop",
+
+      // PC Games
+      "Cyberpunk 2077": "https://images.unsplash.com/photo-1599150093333-3142cba2a6a7?w=500&h=350&fit=crop",
+      "Half-Life: Alyx": "https://images.unsplash.com/photo-1623194416301-d9fd138359a9?w=500&h=350&fit=crop",
+      "Valorant": "https://images.unsplash.com/photo-1616565441139-1fae16d33ade?w=500&h=350&fit=crop",
+      "Microsoft Flight Simulator": "https://images.unsplash.com/photo-1520627977056-c307aeb9a625?w=500&h=350&fit=crop",
+      "Counter-Strike: Global Offensive": "https://images.unsplash.com/photo-1626551036860-8052c23bd450?w=500&h=350&fit=crop",
+      "DOOM Eternal": "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=500&h=350&fit=crop",
+      "World of Warcraft: Shadowlands": "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=500&h=350&fit=crop",
+      "Crusader Kings III": "https://images.unsplash.com/photo-1592155931584-901ac15763e3?w=500&h=350&fit=crop",
+      "League of Legends": "https://images.unsplash.com/photo-1579373903781-fd5c0c30c4cd?w=500&h=350&fit=crop",
+      "Overwatch": "https://images.unsplash.com/photo-1580327332925-a10e6cb11baa?w=500&h=350&fit=crop"
+    };
+
+    // Try to find a direct match for the game title
+    const normalizedTitle = gameTitle.toLowerCase().trim();
+    const exactMatch = Object.keys(gameImageMap).find(
+      title => title.toLowerCase() === normalizedTitle
+    );
+
+    // If found exact match, return the corresponding image
+    if (exactMatch) {
+      return gameImageMap[exactMatch];
+    }
+
+    // Try to find a partial match (for similar titles)
+    const partialMatch = Object.keys(gameImageMap).find(
+      title => normalizedTitle.includes(title.toLowerCase()) || 
+               title.toLowerCase().includes(normalizedTitle)
+    );
+
+    // If found partial match, return the corresponding image
+    if (partialMatch) {
+      return gameImageMap[partialMatch];
+    }
+
+    // If no matches found, return a default image based on platform
     if (platform === 'PS5') {
       return 'https://images.unsplash.com/photo-1605901309584-818e25960a8f?w=500&h=350&fit=crop';
     } else if (platform === 'PS4') {
@@ -423,7 +483,7 @@ export const searchGameImage = async (gameTitle: string, platform: string): Prom
       return 'https://images.unsplash.com/photo-1599150093333-3142cba2a6a7?w=500&h=350&fit=crop';
     }
   } catch (error) {
-    toast.error('Lỗi khi tìm kiếm hình ảnh');
+    toast.error('Error searching for game image');
     console.error('Error searching for game image:', error);
     return '';
   }

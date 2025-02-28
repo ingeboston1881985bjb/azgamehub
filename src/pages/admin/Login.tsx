@@ -44,13 +44,13 @@ const Login: React.FC = () => {
             <span className="text-3xl font-bold text-azgaming-orange">AZ</span>
             <span className="text-3xl font-bold text-white">gaming</span>
           </div>
-          <h1 className="text-2xl font-bold">Đăng nhập Admin</h1>
+          <h1 className="text-2xl font-bold">Admin Login</h1>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-2">
             <label htmlFor="username" className="block text-sm font-medium text-gray-300">
-              Tên đăng nhập
+              Username
             </label>
             <input
               id="username"
@@ -58,14 +58,15 @@ const Login: React.FC = () => {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               className="w-full bg-azgaming-black/50 border border-azgaming-gray/30 rounded-lg py-3 px-4 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-azgaming-orange/50"
-              placeholder="68686868"
+              placeholder="Enter username"
               required
+              autoComplete="off"
             />
           </div>
 
           <div className="space-y-2">
             <label htmlFor="password" className="block text-sm font-medium text-gray-300">
-              Mật khẩu
+              Password
             </label>
             <div className="relative">
               <input
@@ -74,8 +75,9 @@ const Login: React.FC = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full bg-azgaming-black/50 border border-azgaming-gray/30 rounded-lg py-3 px-4 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-azgaming-orange/50"
-                placeholder="Abcd!123456789"
+                placeholder="Enter password"
                 required
+                autoComplete="new-password"
               />
               <button
                 type="button"
@@ -97,7 +99,7 @@ const Login: React.FC = () => {
             ) : (
               <>
                 <LogIn className="mr-2" size={20} />
-                Đăng nhập
+                Login
               </>
             )}
           </button>
@@ -105,8 +107,8 @@ const Login: React.FC = () => {
 
         <div className="mt-6 text-center">
           <p className="text-sm text-gray-400">
-            Công cụ dành cho quản trị viên. <br />
-            Vui lòng quay lại nếu bạn không phải là admin.
+            Administrative tool only. <br />
+            Please go back if you're not an admin.
           </p>
         </div>
       </div>

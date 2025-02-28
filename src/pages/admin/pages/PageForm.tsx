@@ -30,11 +30,11 @@ const PageForm: React.FC = () => {
         if (page) {
           setFormData(page);
         } else {
-          toast.error('Không tìm thấy trang');
+          toast.error('Page not found');
           navigate('/admin/pages');
         }
       } catch (error) {
-        toast.error('Lỗi khi tải dữ liệu trang');
+        toast.error('Error loading page data');
         console.error(error);
       } finally {
         setIsLoading(false);
@@ -87,7 +87,7 @@ const PageForm: React.FC = () => {
     
     // Validate required fields
     if (!formData.title || !formData.slug || !formData.content) {
-      toast.error('Vui lòng điền đầy đủ các trường bắt buộc');
+      toast.error('Please fill in all required fields');
       return;
     }
 
@@ -99,10 +99,10 @@ const PageForm: React.FC = () => {
         addPage(formData as Omit<Page, 'id' | 'createdAt' | 'updatedAt'>);
       }
       
-      toast.success(`Trang đã được ${isEditing ? 'cập nhật' : 'tạo'} thành công`);
+      toast.success(`Page ${isEditing ? 'updated' : 'created'} successfully`);
       navigate('/admin/pages');
     } catch (error) {
-      toast.error('Lỗi khi lưu trang');
+      toast.error('Error saving page');
       console.error(error);
     } finally {
       setIsSaving(false);
@@ -111,17 +111,17 @@ const PageForm: React.FC = () => {
 
   if (isLoading) {
     return (
-      <AdminLayout title={isEditing ? 'Chỉnh sửa trang' : 'Thêm trang mới'}>
+      <AdminLayout title={isEditing ? 'Edit Page' : 'Add New Page'}>
         <div className="py-20 text-center">
           <div className="inline-block w-8 h-8 border-2 border-azgaming-orange border-t-transparent rounded-full animate-spin mb-4"></div>
-          <p className="text-gray-400">Đang tải dữ liệu trang...</p>
+          <p className="text-gray-400">Loading page data...</p>
         </div>
       </AdminLayout>
     );
   }
 
   return (
-    <AdminLayout title={isEditing ? 'Chỉnh sửa trang' : 'Thêm trang mới'}>
+    <AdminLayout title={isEditing ? 'Edit Page' : 'Add New Page'}>
       <div className="flex items-center mb-6">
         <button 
           onClick={() => navigate('/admin/pages')}
@@ -130,7 +130,7 @@ const PageForm: React.FC = () => {
           <ArrowLeft size={20} />
         </button>
         <h2 className="text-2xl font-bold">
-          {isEditing ? `Chỉnh sửa: ${formData.title}` : 'Thêm trang mới'}
+          {isEditing ? `Edit: ${formData.title}` : 'Add New Page'}
         </h2>
       </div>
 
@@ -138,7 +138,7 @@ const PageForm: React.FC = () => {
         {/* Title */}
         <div className="mb-6">
           <label htmlFor="title" className="block text-sm font-medium text-gray-300 mb-1">
-            Tiêu đề trang <span className="text-red-500">*</span>
+            Page Title <span className="text-red-500">*</span>
           </label>
           <input
             type="text"
@@ -147,7 +147,7 @@ const PageForm: React.FC = () => {
             value={formData.title || ''}
             onChange={handleTitleChange}
             className="w-full bg-azgaming-black/50 border border-azgaming-gray/30 rounded-lg py-2 px-4 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-azgaming-orange/50"
-            placeholder="Nhập tiêu đề trang"
+            placeholder="Enter page title"
             required
           />
         </div>
@@ -155,7 +155,7 @@ const PageForm: React.FC = () => {
         {/* Slug */}
         <div className="mb-6">
           <label htmlFor="slug" className="block text-sm font-medium text-gray-300 mb-1">
-            Đường dẫn (slug) <span className="text-red-500">*</span>
+            URL Slug <span className="text-red-500">*</span>
           </label>
           <div className="flex items-center">
             <span className="bg-azgaming-black/70 text-gray-400 px-3 py-2 rounded-l-lg border border-azgaming-gray/30 border-r-0">
@@ -168,19 +168,19 @@ const PageForm: React.FC = () => {
               value={formData.slug || ''}
               onChange={handleChange}
               className="flex-1 bg-azgaming-black/50 border border-azgaming-gray/30 rounded-r-lg py-2 px-4 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-azgaming-orange/50"
-              placeholder="duong-dan-trang"
+              placeholder="page-url-slug"
               required
             />
           </div>
           <p className="mt-1 text-xs text-gray-400">
-            Đường dẫn sẽ được sử dụng để truy cập trang: example.com/<strong>{formData.slug}</strong>
+            The slug will be used for the page URL: example.com/<strong>{formData.slug}</strong>
           </p>
         </div>
 
         {/* Content */}
         <div className="mb-6">
           <label htmlFor="content" className="block text-sm font-medium text-gray-300 mb-1">
-            Nội dung trang <span className="text-red-500">*</span>
+            Page Content <span className="text-red-500">*</span>
           </label>
           <textarea
             id="content"
@@ -189,11 +189,11 @@ const PageForm: React.FC = () => {
             onChange={handleChange}
             rows={15}
             className="w-full bg-azgaming-black/50 border border-azgaming-gray/30 rounded-lg py-3 px-4 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-azgaming-orange/50 font-mono"
-            placeholder="Nhập nội dung HTML của trang..."
+            placeholder="Enter HTML content for the page..."
             required
           ></textarea>
           <p className="mt-1 text-xs text-gray-400">
-            Hỗ trợ HTML để định dạng nội dung trang.
+            HTML is supported for formatting page content.
           </p>
         </div>
 
@@ -208,7 +208,7 @@ const PageForm: React.FC = () => {
             className="w-4 h-4 text-azgaming-orange bg-azgaming-black/50 border border-azgaming-gray/30 rounded focus:ring-azgaming-orange/50"
           />
           <label htmlFor="isPublished" className="ml-2 text-sm font-medium text-gray-300">
-            Xuất bản trang (hiển thị cho người dùng)
+            Publish page (visible to users)
           </label>
         </div>
 
@@ -224,7 +224,7 @@ const PageForm: React.FC = () => {
             ) : (
               <Save size={18} className="mr-2" />
             )}
-            {isSaving ? 'Đang lưu...' : 'Lưu trang'}
+            {isSaving ? 'Saving...' : 'Save Page'}
           </button>
         </div>
       </form>

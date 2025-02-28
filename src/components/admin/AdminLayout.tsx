@@ -56,7 +56,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, title }) => {
   }
 
   return (
-    <div className="min-h-screen bg-azgaming-black text-white flex">
+    <div className="min-h-screen bg-azgaming-black text-white flex overflow-hidden">
       {/* Sidebar */}
       <div 
         className={`${isSidebarOpen ? 'w-64' : 'w-0 md:w-16'} bg-azgaming-gray transition-all duration-300 fixed inset-y-0 left-0 z-30`}
@@ -87,7 +87,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, title }) => {
                   className="flex items-center px-4 py-3 text-gray-300 hover:bg-azgaming-black/50 hover:text-azgaming-orange transition-colors"
                 >
                   <LayoutGrid size={20} className="flex-shrink-0" />
-                  {isSidebarOpen && <span className="ml-3">Bảng điều khiển</span>}
+                  {isSidebarOpen && <span className="ml-3">Dashboard</span>}
                 </a>
               </li>
               <li>
@@ -96,7 +96,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, title }) => {
                   className="flex items-center px-4 py-3 text-gray-300 hover:bg-azgaming-black/50 hover:text-azgaming-orange transition-colors"
                 >
                   <Package size={20} className="flex-shrink-0" />
-                  {isSidebarOpen && <span className="ml-3">Sản phẩm</span>}
+                  {isSidebarOpen && <span className="ml-3">Products</span>}
                 </a>
               </li>
               <li>
@@ -105,7 +105,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, title }) => {
                   className="flex items-center px-4 py-3 text-gray-300 hover:bg-azgaming-black/50 hover:text-azgaming-orange transition-colors"
                 >
                   <FileText size={20} className="flex-shrink-0" />
-                  {isSidebarOpen && <span className="ml-3">Trang</span>}
+                  {isSidebarOpen && <span className="ml-3">Pages</span>}
                 </a>
               </li>
               <li>
@@ -114,7 +114,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, title }) => {
                   className="flex items-center px-4 py-3 text-gray-300 hover:bg-azgaming-black/50 hover:text-azgaming-orange transition-colors"
                 >
                   <Image size={20} className="flex-shrink-0" />
-                  {isSidebarOpen && <span className="ml-3">Banner</span>}
+                  {isSidebarOpen && <span className="ml-3">Banners</span>}
                 </a>
               </li>
               <li>
@@ -123,7 +123,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, title }) => {
                   className="flex items-center px-4 py-3 text-gray-300 hover:bg-azgaming-black/50 hover:text-azgaming-orange transition-colors"
                 >
                   <Home size={20} className="flex-shrink-0" />
-                  {isSidebarOpen && <span className="ml-3">Trang chủ</span>}
+                  {isSidebarOpen && <span className="ml-3">Homepage</span>}
                 </a>
               </li>
               <li>
@@ -132,7 +132,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, title }) => {
                   className="flex items-center px-4 py-3 text-gray-300 hover:bg-azgaming-black/50 hover:text-azgaming-orange transition-colors"
                 >
                   <Settings size={20} className="flex-shrink-0" />
-                  {isSidebarOpen && <span className="ml-3">Cài đặt</span>}
+                  {isSidebarOpen && <span className="ml-3">Settings</span>}
                 </a>
               </li>
             </ul>
@@ -145,14 +145,14 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, title }) => {
               className="flex items-center w-full px-4 py-2 text-gray-300 hover:bg-azgaming-black/50 hover:text-azgaming-orange transition-colors rounded-lg"
             >
               <LogOut size={20} />
-              {isSidebarOpen && <span className="ml-3">Đăng xuất</span>}
+              {isSidebarOpen && <span className="ml-3">Logout</span>}
             </button>
           </div>
         </div>
       </div>
 
       {/* Main Content */}
-      <div className={`${isSidebarOpen ? 'md:ml-64' : 'md:ml-16'} flex-1 transition-all duration-300`}>
+      <div className={`${isSidebarOpen ? 'md:ml-64' : 'md:ml-16'} flex-1 transition-all duration-300 w-full`}>
         {/* Header */}
         <header className="bg-azgaming-black border-b border-azgaming-gray/50 py-3 px-4 md:px-6 flex items-center justify-between sticky top-0 z-20">
           {/* Mobile menu button */}
@@ -172,7 +172,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, title }) => {
               rel="noopener noreferrer" 
               className="text-sm text-gray-300 hover:text-azgaming-orange transition-colors"
             >
-              Xem trang web
+              View website
             </a>
           </div>
         </header>

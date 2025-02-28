@@ -36,11 +36,11 @@ const ProductForm: React.FC = () => {
         if (product) {
           setFormData(product);
         } else {
-          toast.error('Không tìm thấy sản phẩm');
+          toast.error('Product not found');
           navigate('/admin/products');
         }
       } catch (error) {
-        toast.error('Lỗi khi tải dữ liệu sản phẩm');
+        toast.error('Error loading product data');
         console.error(error);
       } finally {
         setIsLoading(false);
@@ -77,7 +77,7 @@ const ProductForm: React.FC = () => {
 
   const handleSearchImage = async () => {
     if (!formData.title) {
-      toast.error('Vui lòng nhập tên sản phẩm trước khi tìm kiếm hình ảnh');
+      toast.error('Please enter a product name before searching for an image');
       return;
     }
 
@@ -93,12 +93,12 @@ const ProductForm: React.FC = () => {
           ...formData,
           image: imageUrl
         });
-        toast.success('Đã tìm thấy hình ảnh cho sản phẩm');
+        toast.success('Image found for this product');
       } else {
-        toast.error('Không tìm thấy hình ảnh phù hợp');
+        toast.error('No suitable image found');
       }
     } catch (error) {
-      toast.error('Lỗi khi tìm kiếm hình ảnh');
+      toast.error('Error searching for image');
       console.error(error);
     } finally {
       setIsSearchingImage(false);
@@ -117,7 +117,7 @@ const ProductForm: React.FC = () => {
     
     // Validate required fields
     if (!formData.title || !formData.platform || formData.price === undefined || !formData.image) {
-      toast.error('Vui lòng điền đầy đủ các trường bắt buộc');
+      toast.error('Please fill in all required fields');
       return;
     }
 
@@ -131,7 +131,7 @@ const ProductForm: React.FC = () => {
       
       navigate('/admin/products');
     } catch (error) {
-      toast.error('Lỗi khi lưu sản phẩm');
+      toast.error('Error saving product');
       console.error(error);
     } finally {
       setIsSaving(false);
@@ -140,17 +140,17 @@ const ProductForm: React.FC = () => {
 
   if (isLoading) {
     return (
-      <AdminLayout title={isEditing ? 'Chỉnh sửa sản phẩm' : 'Thêm sản phẩm mới'}>
+      <AdminLayout title={isEditing ? 'Edit Product' : 'Add New Product'}>
         <div className="py-20 text-center">
           <div className="inline-block w-8 h-8 border-2 border-azgaming-orange border-t-transparent rounded-full animate-spin mb-4"></div>
-          <p className="text-gray-400">Đang tải dữ liệu sản phẩm...</p>
+          <p className="text-gray-400">Loading product data...</p>
         </div>
       </AdminLayout>
     );
   }
 
   return (
-    <AdminLayout title={isEditing ? 'Chỉnh sửa sản phẩm' : 'Thêm sản phẩm mới'}>
+    <AdminLayout title={isEditing ? 'Edit Product' : 'Add New Product'}>
       <div className="flex items-center mb-6">
         <button 
           onClick={() => navigate('/admin/products')}
@@ -159,7 +159,7 @@ const ProductForm: React.FC = () => {
           <ArrowLeft size={20} />
         </button>
         <h2 className="text-2xl font-bold">
-          {isEditing ? `Chỉnh sửa: ${formData.title}` : 'Thêm sản phẩm mới'}
+          {isEditing ? `Edit: ${formData.title}` : 'Add New Product'}
         </h2>
       </div>
 
@@ -170,7 +170,7 @@ const ProductForm: React.FC = () => {
             {/* Title */}
             <div>
               <label htmlFor="title" className="block text-sm font-medium text-gray-300 mb-1">
-                Tên sản phẩm <span className="text-red-500">*</span>
+                Product Name <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
@@ -179,7 +179,7 @@ const ProductForm: React.FC = () => {
                 value={formData.title || ''}
                 onChange={handleChange}
                 className="w-full bg-azgaming-black/50 border border-azgaming-gray/30 rounded-lg py-2 px-4 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-azgaming-orange/50"
-                placeholder="Nhập tên sản phẩm"
+                placeholder="Enter product name"
                 required
               />
             </div>
@@ -187,7 +187,7 @@ const ProductForm: React.FC = () => {
             {/* Platform */}
             <div>
               <label htmlFor="platform" className="block text-sm font-medium text-gray-300 mb-1">
-                Nền tảng <span className="text-red-500">*</span>
+                Platform <span className="text-red-500">*</span>
               </label>
               <select
                 id="platform"
@@ -206,7 +206,7 @@ const ProductForm: React.FC = () => {
             {/* Price */}
             <div>
               <label htmlFor="price" className="block text-sm font-medium text-gray-300 mb-1">
-                Giá sản phẩm <span className="text-red-500">*</span>
+                Price <span className="text-red-500">*</span>
               </label>
               <div className="relative">
                 <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">$</span>
@@ -228,7 +228,7 @@ const ProductForm: React.FC = () => {
             {/* Publisher */}
             <div>
               <label htmlFor="publisher" className="block text-sm font-medium text-gray-300 mb-1">
-                Nhà phát hành
+                Publisher
               </label>
               <input
                 type="text"
@@ -237,14 +237,14 @@ const ProductForm: React.FC = () => {
                 value={formData.publisher || ''}
                 onChange={handleChange}
                 className="w-full bg-azgaming-black/50 border border-azgaming-gray/30 rounded-lg py-2 px-4 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-azgaming-orange/50"
-                placeholder="Nhà phát hành"
+                placeholder="Publisher name"
               />
             </div>
 
             {/* Developer Studio */}
             <div>
               <label htmlFor="developerStudio" className="block text-sm font-medium text-gray-300 mb-1">
-                Studio phát triển
+                Development Studio
               </label>
               <input
                 type="text"
@@ -253,14 +253,14 @@ const ProductForm: React.FC = () => {
                 value={formData.developerStudio || ''}
                 onChange={handleChange}
                 className="w-full bg-azgaming-black/50 border border-azgaming-gray/30 rounded-lg py-2 px-4 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-azgaming-orange/50"
-                placeholder="Studio phát triển"
+                placeholder="Development studio"
               />
             </div>
 
             {/* Release Date */}
             <div>
               <label htmlFor="releaseDate" className="block text-sm font-medium text-gray-300 mb-1">
-                Ngày phát hành
+                Release Date
               </label>
               <input
                 type="date"
@@ -283,7 +283,7 @@ const ProductForm: React.FC = () => {
                 className="w-4 h-4 text-azgaming-orange bg-azgaming-black/50 border border-azgaming-gray/30 rounded focus:ring-azgaming-orange/50"
               />
               <label htmlFor="featured" className="ml-2 text-sm font-medium text-gray-300">
-                Sản phẩm nổi bật
+                Featured Product
               </label>
             </div>
           </div>
@@ -293,7 +293,7 @@ const ProductForm: React.FC = () => {
             {/* Image */}
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-1">
-                Hình ảnh sản phẩm <span className="text-red-500">*</span>
+                Product Image <span className="text-red-500">*</span>
               </label>
               
               {/* Image Preview */}
@@ -311,7 +311,7 @@ const ProductForm: React.FC = () => {
                     <div className="text-center">
                       <Image className="mx-auto h-12 w-12 text-gray-400" />
                       <p className="mt-2 text-sm text-gray-400">
-                        Chưa có hình ảnh sản phẩm
+                        No product image yet
                       </p>
                     </div>
                   </div>
@@ -321,7 +321,7 @@ const ProductForm: React.FC = () => {
               {/* Image URL */}
               <div>
                 <label htmlFor="image" className="block text-sm font-medium text-gray-300 mb-1">
-                  URL hình ảnh <span className="text-red-500">*</span>
+                  Image URL <span className="text-red-500">*</span>
                 </label>
                 <div className="flex gap-2">
                   <input
@@ -345,20 +345,20 @@ const ProductForm: React.FC = () => {
                     ) : (
                       <>
                         <Search size={18} className="mr-1" />
-                        Tìm ảnh
+                        Find Image
                       </>
                     )}
                   </button>
                 </div>
                 <p className="mt-1 text-xs text-gray-400">
-                  Nhấn "Tìm ảnh" để tự động tìm hình ảnh theo tên sản phẩm
+                  Click "Find Image" to automatically search for an image based on the product name
                 </p>
               </div>
 
               {/* Description */}
               <div className="mt-6">
                 <label htmlFor="description" className="block text-sm font-medium text-gray-300 mb-1">
-                  Mô tả sản phẩm
+                  Product Description
                 </label>
                 <textarea
                   id="description"
@@ -367,7 +367,7 @@ const ProductForm: React.FC = () => {
                   onChange={handleChange}
                   rows={8}
                   className="w-full bg-azgaming-black/50 border border-azgaming-gray/30 rounded-lg py-2 px-4 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-azgaming-orange/50"
-                  placeholder="Nhập mô tả sản phẩm..."
+                  placeholder="Enter product description..."
                 ></textarea>
               </div>
             </div>
@@ -386,7 +386,7 @@ const ProductForm: React.FC = () => {
             ) : (
               <Save size={18} className="mr-2" />
             )}
-            {isSaving ? 'Đang lưu...' : 'Lưu sản phẩm'}
+            {isSaving ? 'Saving...' : 'Save Product'}
           </button>
         </div>
       </form>

@@ -22,7 +22,7 @@ const HomepageCustomization: React.FC = () => {
         const data = getHomepageSections();
         setSections(data);
       } catch (error) {
-        toast.error('Lỗi khi tải dữ liệu trang chủ');
+        toast.error('Error loading homepage data');
         console.error(error);
       } finally {
         setIsLoading(false);
@@ -55,7 +55,7 @@ const HomepageCustomization: React.FC = () => {
         updateHomepageSection(section.id, { order: section.order });
       });
       
-      toast.success('Đã thay đổi thứ tự phần');
+      toast.success('Section order changed');
     } else if (direction === 'down' && sectionIndex < sections.length - 1) {
       // Move section down
       const reorderedSections = [...sections];
@@ -75,7 +75,7 @@ const HomepageCustomization: React.FC = () => {
         updateHomepageSection(section.id, { order: section.order });
       });
       
-      toast.success('Đã thay đổi thứ tự phần');
+      toast.success('Section order changed');
     }
   };
 
@@ -95,9 +95,9 @@ const HomepageCustomization: React.FC = () => {
         )
       );
       
-      toast.success(`Phần "${section.title}" đã được ${!section.isActive ? 'kích hoạt' : 'vô hiệu hóa'}`);
+      toast.success(`Section "${section.title}" has been ${!section.isActive ? 'activated' : 'deactivated'}`);
     } catch (error) {
-      toast.error('Lỗi khi cập nhật trạng thái phần');
+      toast.error('Error updating section status');
       console.error(error);
     }
   };
@@ -121,9 +121,9 @@ const HomepageCustomization: React.FC = () => {
       );
       
       setEditingSection(null);
-      toast.success('Đã cập nhật phần thành công');
+      toast.success('Section updated successfully');
     } catch (error) {
-      toast.error('Lỗi khi cập nhật phần');
+      toast.error('Error updating section');
       console.error(error);
     } finally {
       setIsSaving(false);
@@ -131,13 +131,13 @@ const HomepageCustomization: React.FC = () => {
   };
 
   const handleDeleteSection = (id: string) => {
-    if (window.confirm('Bạn có chắc chắn muốn xóa phần này?')) {
+    if (window.confirm('Are you sure you want to delete this section?')) {
       try {
         deleteHomepageSection(id);
         setSections(prevSections => prevSections.filter(s => s.id !== id));
-        toast.success('Đã xóa phần thành công');
+        toast.success('Section deleted successfully');
       } catch (error) {
-        toast.error('Lỗi khi xóa phần');
+        toast.error('Error deleting section');
         console.error(error);
       }
     }
@@ -145,7 +145,7 @@ const HomepageCustomization: React.FC = () => {
 
   const handleAddNewSection = () => {
     if (!newSectionTitle.trim()) {
-      toast.error('Vui lòng nhập tiêu đề phần');
+      toast.error('Please enter a section title');
       return;
     }
     
@@ -162,9 +162,9 @@ const HomepageCustomization: React.FC = () => {
       
       setSections(prev => [...prev, newSection]);
       setNewSectionTitle('');
-      toast.success('Đã thêm phần mới thành công');
+      toast.success('New section added successfully');
     } catch (error) {
-      toast.error('Lỗi khi thêm phần mới');
+      toast.error('Error adding new section');
       console.error(error);
     } finally {
       setIsSaving(false);
@@ -188,54 +188,54 @@ const HomepageCustomization: React.FC = () => {
 
   if (isLoading) {
     return (
-      <AdminLayout title="Tùy chỉnh trang chủ">
+      <AdminLayout title="Homepage Customization">
         <div className="py-20 text-center">
           <div className="inline-block w-8 h-8 border-2 border-azgaming-orange border-t-transparent rounded-full animate-spin mb-4"></div>
-          <p className="text-gray-400">Đang tải dữ liệu trang chủ...</p>
+          <p className="text-gray-400">Loading homepage data...</p>
         </div>
       </AdminLayout>
     );
   }
 
   return (
-    <AdminLayout title="Tùy chỉnh trang chủ">
+    <AdminLayout title="Homepage Customization">
       <div className="flex flex-col md:flex-row justify-between mb-6 gap-4">
         <div className="flex-1">
-          <h2 className="text-2xl font-bold">Bố cục trang chủ</h2>
-          <p className="text-gray-400">Quản lý và sắp xếp các phần trên trang chủ</p>
+          <h2 className="text-2xl font-bold">Homepage Layout</h2>
+          <p className="text-gray-400">Manage and arrange sections on the homepage</p>
         </div>
       </div>
 
       {/* Add new section */}
       <div className="bg-azgaming-gray/20 backdrop-blur-md rounded-xl p-6 border border-azgaming-gray/10 mb-8">
-        <h3 className="text-lg font-medium mb-4">Thêm phần mới</h3>
+        <h3 className="text-lg font-medium mb-4">Add New Section</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-300 mb-1">
-              Tiêu đề phần
+              Section Title
             </label>
             <input
               type="text"
               value={newSectionTitle}
               onChange={(e) => setNewSectionTitle(e.target.value)}
               className="w-full bg-azgaming-black/50 border border-azgaming-gray/30 rounded-lg py-2 px-4 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-azgaming-orange/50"
-              placeholder="Nhập tiêu đề phần"
+              placeholder="Enter section title"
             />
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-300 mb-1">
-              Loại phần
+              Section Type
             </label>
             <select
               value={newSectionType}
               onChange={(e) => setNewSectionType(e.target.value as HomepageSection['type'])}
               className="w-full bg-azgaming-black/50 border border-azgaming-gray/30 rounded-lg py-2 px-4 text-white focus:outline-none focus:ring-2 focus:ring-azgaming-orange/50 appearance-none cursor-pointer"
             >
-              <option value="featured-games">Trò chơi nổi bật</option>
+              <option value="featured-games">Featured Games</option>
               <option value="banner">Banner</option>
-              <option value="product-grid">Lưới sản phẩm</option>
-              <option value="text-block">Khối văn bản</option>
-              <option value="custom">Tùy chỉnh</option>
+              <option value="product-grid">Product Grid</option>
+              <option value="text-block">Text Block</option>
+              <option value="custom">Custom</option>
             </select>
           </div>
           <div className="flex items-end">
@@ -249,7 +249,7 @@ const HomepageCustomization: React.FC = () => {
               ) : (
                 <Plus size={18} className="mr-2" />
               )}
-              Thêm phần
+              Add Section
             </button>
           </div>
         </div>
@@ -276,14 +276,14 @@ const HomepageCustomization: React.FC = () => {
                     <h3 className="font-medium">
                       {section.title}
                       {!section.isActive && (
-                        <span className="ml-2 text-xs text-red-400">(Không hiển thị)</span>
+                        <span className="ml-2 text-xs text-red-400">(Hidden)</span>
                       )}
                     </h3>
                     <p className="text-sm text-gray-400">
-                      {section.type === 'featured-games' ? 'Trò chơi nổi bật' :
+                      {section.type === 'featured-games' ? 'Featured Games' :
                        section.type === 'banner' ? 'Banner' :
-                       section.type === 'product-grid' ? 'Lưới sản phẩm' :
-                       section.type === 'text-block' ? 'Khối văn bản' : 'Tùy chỉnh'}
+                       section.type === 'product-grid' ? 'Product Grid' :
+                       section.type === 'text-block' ? 'Text Block' : 'Custom'}
                     </p>
                   </div>
                 </div>
@@ -300,7 +300,7 @@ const HomepageCustomization: React.FC = () => {
                         ? 'text-gray-500 cursor-not-allowed'
                         : 'text-gray-300 hover:bg-azgaming-gray/50'
                     }`}
-                    title="Di chuyển lên"
+                    title="Move Up"
                   >
                     <ChevronUp size={18} />
                   </button>
@@ -315,7 +315,7 @@ const HomepageCustomization: React.FC = () => {
                         ? 'text-gray-500 cursor-not-allowed'
                         : 'text-gray-300 hover:bg-azgaming-gray/50'
                     }`}
-                    title="Di chuyển xuống"
+                    title="Move Down"
                   >
                     <ChevronDown size={18} />
                   </button>
@@ -331,9 +331,9 @@ const HomepageCustomization: React.FC = () => {
                         ? 'text-azgaming-green hover:bg-azgaming-green/20'
                         : 'text-red-400 hover:bg-red-500/20'
                     }`}
-                    title={section.isActive ? 'Vô hiệu hóa' : 'Kích hoạt'}
+                    title={section.isActive ? 'Deactivate' : 'Activate'}
                   >
-                    {section.isActive ? 'Hiện' : 'Ẩn'}
+                    {section.isActive ? 'Show' : 'Hide'}
                   </button>
                   
                   {/* Edit button */}
@@ -343,7 +343,7 @@ const HomepageCustomization: React.FC = () => {
                       handleEditSection(section);
                     }}
                     className="p-1 text-azgaming-orange hover:bg-azgaming-orange/20 rounded"
-                    title="Chỉnh sửa"
+                    title="Edit"
                   >
                     <Edit size={18} />
                   </button>
@@ -355,7 +355,7 @@ const HomepageCustomization: React.FC = () => {
                       handleDeleteSection(section.id);
                     }}
                     className="p-1 text-red-400 hover:bg-red-500/20 rounded"
-                    title="Xóa"
+                    title="Delete"
                   >
                     <Trash2 size={18} />
                   </button>
@@ -370,7 +370,7 @@ const HomepageCustomization: React.FC = () => {
                     <div className="space-y-4">
                       <div>
                         <label className="block text-sm font-medium text-gray-300 mb-1">
-                          Tiêu đề phần
+                          Section Title
                         </label>
                         <input
                           type="text"
@@ -382,24 +382,24 @@ const HomepageCustomization: React.FC = () => {
                       
                       <div>
                         <label className="block text-sm font-medium text-gray-300 mb-1">
-                          Loại phần
+                          Section Type
                         </label>
                         <select
                           value={editingSection.type}
                           onChange={(e) => setEditingSection({...editingSection, type: e.target.value as HomepageSection['type']})}
                           className="w-full bg-azgaming-black/50 border border-azgaming-gray/30 rounded-lg py-2 px-4 text-white focus:outline-none focus:ring-2 focus:ring-azgaming-orange/50 appearance-none cursor-pointer"
                         >
-                          <option value="featured-games">Trò chơi nổi bật</option>
+                          <option value="featured-games">Featured Games</option>
                           <option value="banner">Banner</option>
-                          <option value="product-grid">Lưới sản phẩm</option>
-                          <option value="text-block">Khối văn bản</option>
-                          <option value="custom">Tùy chỉnh</option>
+                          <option value="product-grid">Product Grid</option>
+                          <option value="text-block">Text Block</option>
+                          <option value="custom">Custom</option>
                         </select>
                       </div>
                       
                       <div>
                         <label className="block text-sm font-medium text-gray-300 mb-1">
-                          Nội dung (JSON)
+                          Content (JSON)
                         </label>
                         <textarea
                           value={editingSection.content}
@@ -408,7 +408,7 @@ const HomepageCustomization: React.FC = () => {
                           className="w-full bg-azgaming-black/50 border border-azgaming-gray/30 rounded-lg py-2 px-4 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-azgaming-orange/50"
                         />
                         <p className="mt-1 text-xs text-gray-400">
-                          Nhập dữ liệu dạng JSON cho phần này
+                          Enter JSON data for this section
                         </p>
                       </div>
                       
@@ -417,7 +417,7 @@ const HomepageCustomization: React.FC = () => {
                           onClick={() => setEditingSection(null)}
                           className="px-4 py-2 border border-azgaming-gray/30 text-white rounded-lg hover:bg-azgaming-gray/30 transition-colors"
                         >
-                          Hủy
+                          Cancel
                         </button>
                         <button
                           onClick={handleUpdateSection}
@@ -429,7 +429,7 @@ const HomepageCustomization: React.FC = () => {
                           ) : (
                             <Save size={18} className="mr-2" />
                           )}
-                          Lưu thay đổi
+                          Save Changes
                         </button>
                       </div>
                     </div>
@@ -438,24 +438,24 @@ const HomepageCustomization: React.FC = () => {
                     <div>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                          <h4 className="text-sm font-medium text-gray-400 mb-1">Loại phần</h4>
+                          <h4 className="text-sm font-medium text-gray-400 mb-1">Type</h4>
                           <p className="bg-azgaming-black/30 p-2 rounded">
-                            {section.type === 'featured-games' ? 'Trò chơi nổi bật' :
+                            {section.type === 'featured-games' ? 'Featured Games' :
                              section.type === 'banner' ? 'Banner' :
-                             section.type === 'product-grid' ? 'Lưới sản phẩm' :
-                             section.type === 'text-block' ? 'Khối văn bản' : 'Tùy chỉnh'}
+                             section.type === 'product-grid' ? 'Product Grid' :
+                             section.type === 'text-block' ? 'Text Block' : 'Custom'}
                           </p>
                         </div>
                         <div>
-                          <h4 className="text-sm font-medium text-gray-400 mb-1">Vị trí</h4>
+                          <h4 className="text-sm font-medium text-gray-400 mb-1">Position</h4>
                           <p className="bg-azgaming-black/30 p-2 rounded">
-                            Thứ tự {section.order}
+                            Order {section.order}
                           </p>
                         </div>
                       </div>
                       
                       <div className="mt-4">
-                        <h4 className="text-sm font-medium text-gray-400 mb-1">Nội dung</h4>
+                        <h4 className="text-sm font-medium text-gray-400 mb-1">Content</h4>
                         <pre className="bg-azgaming-black/30 p-3 rounded overflow-x-auto text-sm">
                           {section.content}
                         </pre>
@@ -467,7 +467,7 @@ const HomepageCustomization: React.FC = () => {
                           className="bg-azgaming-orange hover:bg-azgaming-orange/90 transition-colors text-white px-4 py-2 rounded-lg flex items-center"
                         >
                           <Edit size={18} className="mr-2" />
-                          Chỉnh sửa phần này
+                          Edit This Section
                         </button>
                       </div>
                     </div>
@@ -478,8 +478,8 @@ const HomepageCustomization: React.FC = () => {
           ))
         ) : (
           <div className="bg-azgaming-gray/20 backdrop-blur-md rounded-xl border border-azgaming-gray/10 p-12 text-center">
-            <p className="text-gray-400 mb-4">Chưa có phần nào trên trang chủ</p>
-            <p className="text-sm text-gray-500">Hãy thêm phần đầu tiên bằng biểu mẫu bên trên</p>
+            <p className="text-gray-400 mb-4">No sections on the homepage yet</p>
+            <p className="text-sm text-gray-500">Add your first section using the form above</p>
           </div>
         )}
       </div>

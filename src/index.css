@@ -1,10 +1,11 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: 210 40% 98%;
     --foreground: 222.2 84% 4.9%;
 
     --card: 0 0% 100%;
@@ -13,11 +14,11 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 222.2 47.4% 11.2%;
+    --primary: 24 100% 53%;
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 142 71% 45%;
+    --secondary-foreground: 210 40% 98%;
 
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
@@ -33,22 +34,6 @@
     --ring: 222.2 84% 4.9%;
 
     --radius: 0.5rem;
-
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
   .dark {
@@ -61,11 +46,11 @@
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 210 40% 98%;
+    --primary: 24 100% 53%;
     --primary-foreground: 222.2 47.4% 11.2%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 142 71% 45%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
 
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
@@ -79,14 +64,6 @@
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
 
@@ -97,5 +74,133 @@
 
   body {
     @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
   }
+}
+
+/* Custom Styles */
+.game-card {
+  @apply relative overflow-hidden rounded-xl bg-gradient-to-b from-azgaming-gray to-azgaming-black border border-azgaming-gray transition-all duration-300 hover:shadow-lg hover:shadow-azgaming-orange/20 hover:-translate-y-1;
+}
+
+.game-card-img-container {
+  @apply relative overflow-hidden h-48 w-full;
+}
+
+.game-card-img {
+  @apply h-full w-full object-cover transition-transform duration-500 hover:scale-110;
+}
+
+.game-card-content {
+  @apply p-4 relative z-10;
+}
+
+.price-tag {
+  @apply absolute top-4 right-4 bg-azgaming-orange text-white font-bold py-1 px-3 rounded-full shadow-lg;
+}
+
+.glass-card {
+  @apply bg-white/10 backdrop-blur-md border border-white/20 rounded-lg shadow-xl;
+}
+
+.banner {
+  @apply relative overflow-hidden rounded-xl mb-8;
+}
+
+.banner-content {
+  @apply absolute inset-0 flex flex-col justify-center p-8 md:p-12 bg-gradient-to-r from-azgaming-black/80 to-transparent;
+}
+
+.nav-link {
+  @apply relative text-azgaming-light hover:text-azgaming-orange transition-colors duration-300;
+}
+
+.nav-link::after {
+  @apply content-[''] absolute w-full scale-x-0 h-0.5 bottom-0 left-0 bg-azgaming-orange origin-bottom-right transition-transform duration-300;
+}
+
+.nav-link:hover::after {
+  @apply scale-x-100 origin-bottom-left;
+}
+
+.active-nav-link {
+  @apply text-azgaming-orange;
+}
+
+.active-nav-link::after {
+  @apply scale-x-100;
+}
+
+.hero-text-gradient {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-azgaming-orange to-azgaming-green;
+}
+
+.btn-add-to-cart {
+  @apply bg-azgaming-orange text-white font-medium py-2 px-4 rounded-lg 
+         hover:bg-azgaming-orange/90 active:scale-95 transition-all duration-200
+         flex items-center justify-center gap-2;
+}
+
+.btn-checkout {
+  @apply bg-azgaming-green text-white font-medium py-3 px-6 rounded-lg 
+         hover:bg-azgaming-green/90 active:scale-95 transition-all duration-200
+         flex items-center justify-center gap-2 w-full md:w-auto;
+}
+
+.btn-back {
+  @apply bg-azgaming-gray text-white font-medium py-3 px-6 rounded-lg
+         hover:bg-azgaming-gray/90 active:scale-95 transition-all duration-200
+         flex items-center justify-center gap-2;
+}
+
+/* Cart badge animations */
+@keyframes cartBadgePulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.cart-badge-pulse {
+  animation: cartBadgePulse 0.5s ease-in-out;
+}
+
+/* Scrollbar styles */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-azgaming-gray/10;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-azgaming-orange/50 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-azgaming-orange;
+}
+
+/* Page transitions */
+.page-transition-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.page-transition-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.page-transition-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.page-transition-exit-active {
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 300ms, transform 300ms;
 }

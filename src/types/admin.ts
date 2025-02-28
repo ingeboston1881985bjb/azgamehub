@@ -7,6 +7,7 @@ export interface AdminProduct extends GameItem {
   releaseDate?: string;
   publisher?: string;
   developerStudio?: string;
+  updatedAt?: string; // Added this missing property
 }
 
 export interface Page {

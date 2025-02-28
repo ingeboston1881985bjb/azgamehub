@@ -1,3 +1,4 @@
+
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { toast } from "sonner";
 
@@ -8,6 +9,7 @@ export interface GameItem {
   price: number;
   image: string;
   platform: 'PS4' | 'PS5' | 'PC';
+  updatedAt?: string; // Added this missing property
 }
 
 interface CartItem extends GameItem {

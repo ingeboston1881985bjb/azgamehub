@@ -111,9 +111,11 @@ export const getProduct = (id: string): AdminProduct | undefined => {
 
 export const addProduct = (product: Omit<AdminProduct, 'id'>): AdminProduct => {
   const id = `custom-${Date.now()}`;
+  const now = new Date().toISOString(); // Add current date for updatedAt
   const newProduct: AdminProduct = {
     ...product,
-    id
+    id,
+    updatedAt: now // Set the updatedAt property
   };
 
   const adminData = getAdminData();
@@ -132,7 +134,7 @@ export const updateProduct = (id: string, updates: Partial<AdminProduct>): Admin
     adminData.products[index] = {
       ...adminData.products[index],
       ...updates,
-      updatedAt: new Date().toISOString()
+      updatedAt: new Date().toISOString() // Set the updatedAt property
     };
     saveAdminData(adminData);
     toast.success('Sản phẩm đã được cập nhật thành công');

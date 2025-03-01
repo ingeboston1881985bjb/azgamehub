@@ -12,6 +12,7 @@ import { CartProvider } from './context/CartContext';
 import { AdminProvider } from './context/AdminContext';
 import { Toaster } from "sonner";
 import AntiLagBanner from './components/AntiLagBanner';
+import { useAdmin } from './context/AdminContext';
 
 // Admin Routes
 import AdminLogin from './pages/admin/Login';
@@ -31,7 +32,7 @@ import './App.css';
 
 // Admin authentication guard
 const RequireAuth = ({ children }) => {
-  const { isAuthenticated } = useAdminContext();
+  const { isAuthenticated } = useAdmin();
   const location = useLocation();
 
   if (!isAuthenticated && location.pathname.startsWith('/admin') && location.pathname !== '/admin/login') {
@@ -151,8 +152,5 @@ function App() {
     </AdminProvider>
   );
 }
-
-// Need to import this after declaring RequireAuth to avoid reference error
-import { useAdmin as useAdminContext } from './context/AdminContext';
 
 export default App;

@@ -23,21 +23,15 @@ const GameCard: React.FC<GameCardProps> = ({ game }) => {
   return (
     <div className="game-card group animate-fade-in">
       {/* Game image with overlay */}
-      <div className="game-card-img-container">
-        <div className="absolute inset-0 bg-azgaming-gray animate-pulse"></div>
+      <div className="game-card-img-container relative overflow-hidden rounded-lg shadow-lg">
         <img 
           src={game.image} 
           alt={game.title} 
-          className="game-card-img opacity-0 transition-opacity duration-500"
-          onLoad={(e) => {
-            const target = e.target as HTMLImageElement;
-            target.classList.remove('opacity-0');
-            target.classList.add('opacity-100');
-          }}
+          className="game-card-img w-full h-full object-cover transition-transform duration-300"
         />
         
         {/* Price tag */}
-        <div className="price-tag transform translate-y-0 group-hover:translate-y-1 transition-transform duration-300">
+        <div className="price-tag absolute top-2 right-2 bg-azgaming-black/80 text-white text-sm font-medium px-2 py-1 rounded transform translate-y-0 group-hover:translate-y-1 transition-transform duration-300">
           {formattedPrice}
         </div>
         
@@ -46,14 +40,14 @@ const GameCard: React.FC<GameCardProps> = ({ game }) => {
       </div>
       
       {/* Game details */}
-      <div className="game-card-content">
+      <div className="game-card-content mt-3">
         <h3 className="text-lg font-bold text-white truncate">{game.title}</h3>
         <div className="flex justify-between items-center mt-2">
           <span className="text-sm text-gray-300">{game.platform}</span>
           
           {/* Add to cart button */}
           <button 
-            className="btn-add-to-cart opacity-90 group-hover:opacity-100 transform translate-y-0 group-hover:translate-y-0 transition-all duration-300"
+            className="btn-add-to-cart bg-azgaming-orange/90 hover:bg-azgaming-orange text-white text-xs font-medium flex items-center gap-1 px-3 py-1 rounded-full opacity-90 group-hover:opacity-100 transform translate-y-0 group-hover:translate-y-0 transition-all duration-300"
             onClick={handleAddToCart}
             aria-label={`Add ${game.title} to cart`}
           >

@@ -100,3 +100,17 @@ table {
     overflow-x: auto;
   }
 }
+
+/* Remove game image loading animation */
+.game-card-img-container .absolute.inset-0.bg-azgaming-gray {
+  animation: none !important;
+}
+
+.game-card-img {
+  opacity: 1 !important;
+  transition: transform 0.3s ease-out !important;
+}
+
+.game-card:hover .game-card-img {
+  transform: scale(1.05);
+}

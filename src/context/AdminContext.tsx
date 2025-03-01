@@ -48,10 +48,10 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     if (credentials.username === '68686868' && credentials.password === 'Abcd!123456789') {
       setIsAuthenticated(true);
       localStorage.setItem('azgaming-admin-auth', JSON.stringify({ isAuthenticated: true }));
-      toast.success('Đăng nhập thành công!');
+      toast.success('Login successful!');
       return true;
     } else {
-      toast.error('Thông tin đăng nhập không chính xác');
+      toast.error('Invalid login credentials');
       return false;
     }
   };
@@ -59,7 +59,7 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   const logout = () => {
     setIsAuthenticated(false);
     localStorage.removeItem('azgaming-admin-auth');
-    toast.info('Đã đăng xuất');
+    toast.info('Logged out');
   };
 
   return (

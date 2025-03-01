@@ -40,13 +40,13 @@ const Dashboard: React.FC = () => {
   }, []);
 
   return (
-    <AdminLayout title="Bảng điều khiển">
+    <AdminLayout title="Dashboard">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {/* Products Card */}
         <div className="bg-azgaming-gray/20 backdrop-blur-md rounded-xl border border-azgaming-gray/10 p-6 hover:shadow-md transition-all">
           <div className="flex items-start justify-between">
             <div>
-              <p className="text-gray-400">Sản phẩm</p>
+              <p className="text-gray-400">Products</p>
               <h3 className="text-3xl font-bold mt-2">{stats.products}</h3>
             </div>
             <div className="p-3 bg-azgaming-orange/20 rounded-full">
@@ -58,7 +58,7 @@ const Dashboard: React.FC = () => {
               href="/admin/products" 
               className="text-sm inline-flex items-center text-azgaming-orange hover:underline"
             >
-              Quản lý sản phẩm <ArrowUpRight size={14} className="ml-1" />
+              Manage Products <ArrowUpRight size={14} className="ml-1" />
             </a>
           </div>
         </div>
@@ -67,7 +67,7 @@ const Dashboard: React.FC = () => {
         <div className="bg-azgaming-gray/20 backdrop-blur-md rounded-xl border border-azgaming-gray/10 p-6 hover:shadow-md transition-all">
           <div className="flex items-start justify-between">
             <div>
-              <p className="text-gray-400">Trang</p>
+              <p className="text-gray-400">Pages</p>
               <h3 className="text-3xl font-bold mt-2">{stats.pages}</h3>
             </div>
             <div className="p-3 bg-azgaming-green/20 rounded-full">
@@ -79,7 +79,7 @@ const Dashboard: React.FC = () => {
               href="/admin/pages" 
               className="text-sm inline-flex items-center text-azgaming-green hover:underline"
             >
-              Quản lý trang <ArrowUpRight size={14} className="ml-1" />
+              Manage Pages <ArrowUpRight size={14} className="ml-1" />
             </a>
           </div>
         </div>
@@ -88,7 +88,7 @@ const Dashboard: React.FC = () => {
         <div className="bg-azgaming-gray/20 backdrop-blur-md rounded-xl border border-azgaming-gray/10 p-6 hover:shadow-md transition-all">
           <div className="flex items-start justify-between">
             <div>
-              <p className="text-gray-400">Banner</p>
+              <p className="text-gray-400">Banners</p>
               <h3 className="text-3xl font-bold mt-2">{stats.banners}</h3>
             </div>
             <div className="p-3 bg-azgaming-orange/20 rounded-full">
@@ -100,7 +100,7 @@ const Dashboard: React.FC = () => {
               href="/admin/banners" 
               className="text-sm inline-flex items-center text-azgaming-orange hover:underline"
             >
-              Quản lý banner <ArrowUpRight size={14} className="ml-1" />
+              Manage Banners <ArrowUpRight size={14} className="ml-1" />
             </a>
           </div>
         </div>
@@ -109,7 +109,7 @@ const Dashboard: React.FC = () => {
         <div className="bg-azgaming-gray/20 backdrop-blur-md rounded-xl border border-azgaming-gray/10 p-6 hover:shadow-md transition-all">
           <div className="flex items-start justify-between">
             <div>
-              <p className="text-gray-400">Phần trang chủ</p>
+              <p className="text-gray-400">Homepage Sections</p>
               <h3 className="text-3xl font-bold mt-2">{stats.sections}</h3>
             </div>
             <div className="p-3 bg-azgaming-green/20 rounded-full">
@@ -121,7 +121,7 @@ const Dashboard: React.FC = () => {
               href="/admin/homepage" 
               className="text-sm inline-flex items-center text-azgaming-green hover:underline"
             >
-              Tùy chỉnh trang chủ <ArrowUpRight size={14} className="ml-1" />
+              Customize Homepage <ArrowUpRight size={14} className="ml-1" />
             </a>
           </div>
         </div>
@@ -129,7 +129,7 @@ const Dashboard: React.FC = () => {
 
       {/* Quick Actions */}
       <div className="mt-8">
-        <h2 className="text-xl font-bold mb-4">Thao tác nhanh</h2>
+        <h2 className="text-xl font-bold mb-4">Quick Actions</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <a 
             href="/admin/products/new" 
@@ -138,7 +138,7 @@ const Dashboard: React.FC = () => {
             <div className="p-2 bg-azgaming-orange/20 rounded-full mr-3">
               <Package className="text-azgaming-orange" size={20} />
             </div>
-            <span>Thêm sản phẩm mới</span>
+            <span>Add New Product</span>
           </a>
           
           <a 
@@ -148,7 +148,7 @@ const Dashboard: React.FC = () => {
             <div className="p-2 bg-azgaming-green/20 rounded-full mr-3">
               <FileText className="text-azgaming-green" size={20} />
             </div>
-            <span>Tạo trang mới</span>
+            <span>Create New Page</span>
           </a>
           
           <a 
@@ -158,23 +158,23 @@ const Dashboard: React.FC = () => {
             <div className="p-2 bg-azgaming-orange/20 rounded-full mr-3">
               <FileImage className="text-azgaming-orange" size={20} />
             </div>
-            <span>Tạo banner mới</span>
+            <span>Create New Banner</span>
           </a>
         </div>
       </div>
 
       {/* Recent Products */}
       <div className="mt-8">
-        <h2 className="text-xl font-bold mb-4">Sản phẩm gần đây</h2>
+        <h2 className="text-xl font-bold mb-4">Recent Products</h2>
         <div className="bg-azgaming-gray/20 backdrop-blur-md rounded-xl border border-azgaming-gray/10 overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
                 <tr className="bg-azgaming-black/30">
-                  <th className="text-left py-3 px-4 font-medium text-gray-300">Tên sản phẩm</th>
-                  <th className="text-left py-3 px-4 font-medium text-gray-300">Nền tảng</th>
-                  <th className="text-left py-3 px-4 font-medium text-gray-300">Giá</th>
-                  <th className="text-left py-3 px-4 font-medium text-gray-300">Thao tác</th>
+                  <th className="text-left py-3 px-4 font-medium text-gray-300">Product Name</th>
+                  <th className="text-left py-3 px-4 font-medium text-gray-300">Platform</th>
+                  <th className="text-left py-3 px-4 font-medium text-gray-300">Price</th>
+                  <th className="text-left py-3 px-4 font-medium text-gray-300">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-azgaming-gray/10">
@@ -188,7 +188,7 @@ const Dashboard: React.FC = () => {
                         href={`/admin/products/edit/${product.id}`}
                         className="text-azgaming-orange hover:underline"
                       >
-                        Chỉnh sửa
+                        Edit
                       </a>
                     </td>
                   </tr>

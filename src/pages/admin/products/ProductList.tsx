@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import AdminLayout from '../../../components/admin/AdminLayout';
 import { getProducts, deleteProduct } from '../../../services/adminService';
 import { AdminProduct } from '../../../types/admin';
@@ -23,7 +24,7 @@ const ProductList: React.FC = () => {
         setProducts(data);
         setFilteredProducts(data);
       } catch (error) {
-        toast.error('Lỗi khi tải dữ liệu sản phẩm');
+        toast.error('Error loading product data');
         console.error(error);
       } finally {
         setIsLoading(false);
@@ -83,13 +84,14 @@ const ProductList: React.FC = () => {
   };
 
   const handleDelete = (id: string, title: string) => {
-    if (window.confirm(`Bạn có chắc chắn muốn xóa sản phẩm "${title}"?`)) {
+    if (window.confirm(`Are you sure you want to delete the product "${title}"?`)) {
       try {
         deleteProduct(id);
         // Update state after deletion
         setProducts(prevProducts => prevProducts.filter(product => product.id !== id));
+        toast.success(`Product "${title}" deleted successfully`);
       } catch (error) {
-        toast.error('Lỗi khi xóa sản phẩm');
+        toast.error('Error deleting product');
         console.error(error);
       }
     }
@@ -101,19 +103,19 @@ const ProductList: React.FC = () => {
   };
 
   return (
-    <AdminLayout title="Quản lý sản phẩm">
+    <AdminLayout title="Product Management">
       <div className="flex flex-col md:flex-row justify-between mb-6 gap-4">
         <div className="flex-1">
-          <h2 className="text-2xl font-bold">Danh sách sản phẩm</h2>
-          <p className="text-gray-400">Quản lý tất cả sản phẩm của AZgaming</p>
+          <h2 className="text-2xl font-bold">Product List</h2>
+          <p className="text-gray-400">Manage all AZgaming products</p>
         </div>
-        <a
-          href="/admin/products/new"
+        <Link
+          to="/admin/products/new"
           className="bg-azgaming-orange hover:bg-azgaming-orange/90 transition-colors text-white px-4 py-2 rounded-lg flex items-center self-start"
         >
           <Plus size={18} className="mr-2" />
-          Thêm sản phẩm
-        </a>
+          Add New Product
+        </Link>
       </div>
 
       {/* Filters */}
@@ -124,7 +126,7 @@ const ProductList: React.FC = () => {
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
             <input
               type="text"
-              placeholder="Tìm kiếm sản phẩm..."
+              placeholder="Search products..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-10 pr-4 py-2 bg-azgaming-black/50 border border-azgaming-gray/30 rounded-lg text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-azgaming-orange/50"
@@ -140,7 +142,7 @@ const ProductList: React.FC = () => {
                 onChange={(e) => setPlatformFilter(e.target.value)}
                 className="w-full pl-10 pr-4 py-2 bg-azgaming-black/50 border border-azgaming-gray/30 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-azgaming-orange/50 appearance-none cursor-pointer"
               >
-                <option value="all">Tất cả nền tảng</option>
+                <option value="all">All Platforms</option>
                 <option value="PS4">PlayStation 4</option>
                 <option value="PS5">PlayStation 5</option>
                 <option value="PC">PC</option>
@@ -151,7 +153,7 @@ const ProductList: React.FC = () => {
         
         {/* Results count */}
         <div className="mt-4 text-sm text-gray-400">
-          Hiển thị {filteredProducts.length} trong số {products.length} sản phẩm
+          Showing {filteredProducts.length} of {products.length} products
         </div>
       </div>
 
@@ -160,7 +162,7 @@ const ProductList: React.FC = () => {
         {isLoading ? (
           <div className="py-20 text-center">
             <div className="inline-block w-8 h-8 border-2 border-azgaming-orange border-t-transparent rounded-full animate-spin mb-4"></div>
-            <p className="text-gray-400">Đang tải dữ liệu sản phẩm...</p>
+            <p className="text-gray-400">Loading product data...</p>
           </div>
         ) : filteredProducts.length > 0 ? (
           <div className="overflow-x-auto">
@@ -172,7 +174,7 @@ const ProductList: React.FC = () => {
                     onClick={() => handleSort('title')}
                   >
                     <div className="flex items-center">
-                      Tên sản phẩm
+                      Product Name
                       <SortIcon field='title' />
                     </div>
                   </th>
@@ -181,7 +183,7 @@ const ProductList: React.FC = () => {
                     onClick={() => handleSort('platform')}
                   >
                     <div className="flex items-center">
-                      Nền tảng
+                      Platform
                       <SortIcon field='platform' />
                     </div>
                   </th>
@@ -190,12 +192,12 @@ const ProductList: React.FC = () => {
                     onClick={() => handleSort('price')}
                   >
                     <div className="flex items-center">
-                      Giá
+                      Price
                       <SortIcon field='price' />
                     </div>
                   </th>
-                  <th className="text-left py-3 px-4 font-medium text-gray-300">Hình ảnh</th>
-                  <th className="text-center py-3 px-4 font-medium text-gray-300">Thao tác</th>
+                  <th className="text-left py-3 px-4 font-medium text-gray-300">Image</th>
+                  <th className="text-center py-3 px-4 font-medium text-gray-300">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-azgaming-gray/10">
@@ -215,17 +217,17 @@ const ProductList: React.FC = () => {
                     </td>
                     <td className="py-3 px-4">
                       <div className="flex justify-center gap-2">
-                        <a 
-                          href={`/admin/products/edit/${product.id}`}
+                        <Link 
+                          to={`/admin/products/edit/${product.id}`}
                           className="p-1 bg-azgaming-green/20 rounded hover:bg-azgaming-green/30 transition-colors"
-                          title="Chỉnh sửa"
+                          title="Edit"
                         >
                           <Edit size={18} className="text-azgaming-green" />
-                        </a>
+                        </Link>
                         <button 
                           onClick={() => handleDelete(product.id, product.title)}
                           className="p-1 bg-red-500/20 rounded hover:bg-red-500/30 transition-colors"
-                          title="Xóa"
+                          title="Delete"
                         >
                           <Trash2 size={18} className="text-red-500" />
                         </button>
@@ -238,7 +240,7 @@ const ProductList: React.FC = () => {
           </div>
         ) : (
           <div className="py-20 text-center">
-            <p className="text-gray-400">Không tìm thấy sản phẩm nào</p>
+            <p className="text-gray-400">No products found</p>
           </div>
         )}
       </div>

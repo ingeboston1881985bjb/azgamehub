@@ -1,6 +1,6 @@
 
 import React, { ReactNode } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAdmin } from '../../context/AdminContext';
 import { LayoutGrid, Package, FileText, Image, Home, LogOut, Settings, Menu, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
@@ -55,6 +55,9 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, title }) => {
     return null;
   }
 
+  // Get current path to highlight active link
+  const currentPath = window.location.pathname;
+
   return (
     <div className="min-h-screen bg-azgaming-black text-white flex overflow-hidden">
       {/* Sidebar */}
@@ -82,58 +85,58 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, title }) => {
           <nav className="flex-1 py-4 overflow-y-auto">
             <ul className="space-y-2">
               <li>
-                <a 
-                  href="/admin" 
-                  className="flex items-center px-4 py-3 text-gray-300 hover:bg-azgaming-black/50 hover:text-azgaming-orange transition-colors"
+                <Link 
+                  to="/admin" 
+                  className={`flex items-center px-4 py-3 text-gray-300 hover:bg-azgaming-black/50 hover:text-azgaming-orange transition-colors ${currentPath === '/admin' ? 'bg-azgaming-black/30 text-azgaming-orange' : ''}`}
                 >
                   <LayoutGrid size={20} className="flex-shrink-0" />
                   {isSidebarOpen && <span className="ml-3">Dashboard</span>}
-                </a>
+                </Link>
               </li>
               <li>
-                <a 
-                  href="/admin/products" 
-                  className="flex items-center px-4 py-3 text-gray-300 hover:bg-azgaming-black/50 hover:text-azgaming-orange transition-colors"
+                <Link 
+                  to="/admin/products" 
+                  className={`flex items-center px-4 py-3 text-gray-300 hover:bg-azgaming-black/50 hover:text-azgaming-orange transition-colors ${currentPath.includes('/admin/products') ? 'bg-azgaming-black/30 text-azgaming-orange' : ''}`}
                 >
                   <Package size={20} className="flex-shrink-0" />
                   {isSidebarOpen && <span className="ml-3">Products</span>}
-                </a>
+                </Link>
               </li>
               <li>
-                <a 
-                  href="/admin/pages" 
-                  className="flex items-center px-4 py-3 text-gray-300 hover:bg-azgaming-black/50 hover:text-azgaming-orange transition-colors"
+                <Link 
+                  to="/admin/pages" 
+                  className={`flex items-center px-4 py-3 text-gray-300 hover:bg-azgaming-black/50 hover:text-azgaming-orange transition-colors ${currentPath.includes('/admin/pages') ? 'bg-azgaming-black/30 text-azgaming-orange' : ''}`}
                 >
                   <FileText size={20} className="flex-shrink-0" />
                   {isSidebarOpen && <span className="ml-3">Pages</span>}
-                </a>
+                </Link>
               </li>
               <li>
-                <a 
-                  href="/admin/banners" 
-                  className="flex items-center px-4 py-3 text-gray-300 hover:bg-azgaming-black/50 hover:text-azgaming-orange transition-colors"
+                <Link 
+                  to="/admin/banners" 
+                  className={`flex items-center px-4 py-3 text-gray-300 hover:bg-azgaming-black/50 hover:text-azgaming-orange transition-colors ${currentPath.includes('/admin/banners') ? 'bg-azgaming-black/30 text-azgaming-orange' : ''}`}
                 >
                   <Image size={20} className="flex-shrink-0" />
                   {isSidebarOpen && <span className="ml-3">Banners</span>}
-                </a>
+                </Link>
               </li>
               <li>
-                <a 
-                  href="/admin/homepage" 
-                  className="flex items-center px-4 py-3 text-gray-300 hover:bg-azgaming-black/50 hover:text-azgaming-orange transition-colors"
+                <Link 
+                  to="/admin/homepage" 
+                  className={`flex items-center px-4 py-3 text-gray-300 hover:bg-azgaming-black/50 hover:text-azgaming-orange transition-colors ${currentPath.includes('/admin/homepage') ? 'bg-azgaming-black/30 text-azgaming-orange' : ''}`}
                 >
                   <Home size={20} className="flex-shrink-0" />
                   {isSidebarOpen && <span className="ml-3">Homepage</span>}
-                </a>
+                </Link>
               </li>
               <li>
-                <a 
-                  href="/admin/settings" 
-                  className="flex items-center px-4 py-3 text-gray-300 hover:bg-azgaming-black/50 hover:text-azgaming-orange transition-colors"
+                <Link 
+                  to="/admin/settings" 
+                  className={`flex items-center px-4 py-3 text-gray-300 hover:bg-azgaming-black/50 hover:text-azgaming-orange transition-colors ${currentPath.includes('/admin/settings') ? 'bg-azgaming-black/30 text-azgaming-orange' : ''}`}
                 >
                   <Settings size={20} className="flex-shrink-0" />
                   {isSidebarOpen && <span className="ml-3">Settings</span>}
-                </a>
+                </Link>
               </li>
             </ul>
           </nav>
@@ -166,16 +169,22 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, title }) => {
           <h1 className="text-xl font-bold text-white">{title}</h1>
 
           <div className="flex items-center gap-3">
-            <a 
-              href="/" 
+            <Link 
+              to="/" 
               target="_blank" 
               rel="noopener noreferrer" 
               className="text-sm text-gray-300 hover:text-azgaming-orange transition-colors"
             >
               View website
-            </a>
+            </Link>
           </div>
         </header>
+
+        {/* Anti-Lag Banner - Always visible at the top */}
+        <div className="sticky top-12 z-20 bg-gradient-to-r from-azgaming-orange to-azgaming-orange/90 text-white py-2 px-4 text-center text-sm">
+          <strong>Anti-Lag Software:</strong> Boost your PC gaming performance with our anti-lag software. 
+          <a href="/download/anti-lag" className="underline ml-2 font-semibold hover:text-azgaming-black transition-colors">Download Now</a>
+        </div>
 
         {/* Page Content */}
         <main className="p-4 md:p-6">

@@ -47,7 +47,10 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     // In a real app, this would be an API call to validate credentials
     if (credentials.username === '68686868' && credentials.password === 'Abcd!123456789') {
       setIsAuthenticated(true);
-      localStorage.setItem('azgaming-admin-auth', JSON.stringify({ isAuthenticated: true }));
+      localStorage.setItem('azgaming-admin-auth', JSON.stringify({ 
+        isAuthenticated: true,
+        timestamp: new Date().toISOString() 
+      }));
       toast.success('Login successful!');
       return true;
     } else {
@@ -59,7 +62,7 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   const logout = () => {
     setIsAuthenticated(false);
     localStorage.removeItem('azgaming-admin-auth');
-    toast.info('Logged out');
+    toast.info('Logged out successfully');
   };
 
   return (

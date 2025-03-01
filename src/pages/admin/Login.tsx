@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAdmin } from '../../context/AdminContext';
-import { LogIn, Eye, EyeOff } from 'lucide-react';
+import { Eye, EyeOff, LogIn } from 'lucide-react';
 
 const Login: React.FC = () => {
   const [username, setUsername] = useState('');
@@ -12,6 +12,7 @@ const Login: React.FC = () => {
   const { isAuthenticated, login } = useAdmin();
   const navigate = useNavigate();
 
+  // Redirect if already authenticated
   useEffect(() => {
     if (isAuthenticated) {
       navigate('/admin');
@@ -24,7 +25,7 @@ const Login: React.FC = () => {
     if (!username || !password) {
       return;
     }
-
+    
     setIsLoading(true);
     try {
       const success = await login({ username, password });
@@ -36,81 +37,99 @@ const Login: React.FC = () => {
     }
   };
 
+  // This helps prevent autocomplete
+  useEffect(() => {
+    // Set a random name attribute to confuse browser autocomplete
+    const usernameInput = document.getElementById('username');
+    const passwordInput = document.getElementById('password');
+    
+    if (usernameInput) {
+      usernameInput.setAttribute('name', `username_${Math.random().toString(36).substring(2)}`);
+      usernameInput.setAttribute('autocomplete', 'off');
+    }
+    
+    if (passwordInput) {
+      passwordInput.setAttribute('name', `password_${Math.random().toString(36).substring(2)}`);
+      passwordInput.setAttribute('autocomplete', 'new-password');
+    }
+  }, []);
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-azgaming-black to-azgaming-gray/95 text-white flex items-center justify-center p-4">
-      <div className="w-full max-w-md bg-azgaming-gray/20 backdrop-blur-md rounded-xl border border-azgaming-gray/10 p-8 shadow-xl animate-fade-in">
-        <div className="text-center mb-8">
-          <div className="flex items-center justify-center mb-2">
-            <span className="text-3xl font-bold text-azgaming-orange">AZ</span>
-            <span className="text-3xl font-bold text-white">gaming</span>
+    <div className="min-h-screen flex items-center justify-center bg-azgaming-black px-4 py-12 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full space-y-8 animate-fade-in">
+        <div>
+          <div className="flex justify-center">
+            <div className="h-12 flex items-center">
+              <span className="text-3xl font-bold text-azgaming-orange">AZ</span>
+              <span className="text-3xl font-bold text-white">gaming</span>
+            </div>
           </div>
-          <h1 className="text-2xl font-bold">Admin Login</h1>
+          <h2 className="mt-6 text-center text-2xl font-extrabold text-white">
+            Admin Dashboard Login
+          </h2>
+          <p className="mt-2 text-center text-sm text-gray-400">
+            Enter your credentials to access the admin area
+          </p>
         </div>
-
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="space-y-2">
-            <label htmlFor="username" className="block text-sm font-medium text-gray-300">
-              Username
-            </label>
-            <input
-              id="username"
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              className="w-full bg-azgaming-black/50 border border-azgaming-gray/30 rounded-lg py-3 px-4 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-azgaming-orange/50"
-              placeholder="Enter username"
-              required
-              autoComplete="off"
-            />
-          </div>
-
-          <div className="space-y-2">
-            <label htmlFor="password" className="block text-sm font-medium text-gray-300">
-              Password
-            </label>
+        
+        <form className="mt-8 space-y-6 login-form" onSubmit={handleSubmit}>
+          <div className="rounded-md shadow-sm -space-y-px">
+            <div>
+              <label htmlFor="username" className="sr-only">Username</label>
+              <input
+                id="username"
+                type="text"
+                autoComplete="off"
+                required
+                className="appearance-none relative block w-full px-3 py-3 border border-azgaming-gray/50 placeholder-gray-500 text-white rounded-t-md bg-azgaming-gray/30 focus:outline-none focus:ring-azgaming-orange/50 focus:border-azgaming-orange/50 focus:z-10 sm:text-sm"
+                placeholder="Username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+            </div>
             <div className="relative">
+              <label htmlFor="password" className="sr-only">Password</label>
               <input
                 id="password"
-                type={showPassword ? 'text' : 'password'}
+                type={showPassword ? "text" : "password"}
+                autoComplete="new-password"
+                required
+                className="appearance-none relative block w-full px-3 py-3 border border-azgaming-gray/50 placeholder-gray-500 text-white rounded-b-md bg-azgaming-gray/30 focus:outline-none focus:ring-azgaming-orange/50 focus:border-azgaming-orange/50 focus:z-10 sm:text-sm"
+                placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-azgaming-black/50 border border-azgaming-gray/30 rounded-lg py-3 px-4 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-azgaming-orange/50"
-                placeholder="Enter password"
-                required
-                autoComplete="new-password"
               />
               <button
                 type="button"
+                className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-300"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-white"
               >
-                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
               </button>
             </div>
           </div>
 
-          <button
-            type="submit"
-            disabled={isLoading}
-            className="w-full bg-azgaming-orange hover:bg-azgaming-orange/90 transition-colors duration-300 text-white font-bold py-3 px-4 rounded-lg flex items-center justify-center"
-          >
-            {isLoading ? (
-              <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-            ) : (
-              <>
-                <LogIn className="mr-2" size={20} />
-                Login
-              </>
-            )}
-          </button>
+          <div>
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-azgaming-orange hover:bg-azgaming-orange/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-azgaming-orange/50 disabled:opacity-70 disabled:cursor-not-allowed"
+            >
+              {isLoading ? (
+                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
+              ) : (
+                <LogIn className="w-5 h-5 mr-2" />
+              )}
+              {isLoading ? 'Logging in...' : 'Sign in'}
+            </button>
+          </div>
+          
+          <div className="text-center">
+            <a href="/" className="text-sm text-azgaming-orange hover:text-azgaming-orange/80">
+              Return to website
+            </a>
+          </div>
         </form>
-
-        <div className="mt-6 text-center">
-          <p className="text-sm text-gray-400">
-            Administrative tool only. <br />
-            Please go back if you're not an admin.
-          </p>
-        </div>
       </div>
     </div>
   );

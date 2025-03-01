@@ -1,6 +1,6 @@
 
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Index from './pages/Index';
 import PS4 from './pages/PS4';
 import PS5 from './pages/PS5';
@@ -11,6 +11,7 @@ import NotFound from './pages/NotFound';
 import { CartProvider } from './context/CartContext';
 import { AdminProvider } from './context/AdminContext';
 import { Toaster } from "sonner";
+import AntiLagBanner from './components/AntiLagBanner';
 
 // Admin Routes
 import AdminLogin from './pages/admin/Login';
@@ -28,6 +29,18 @@ import Settings from './pages/admin/Settings';
 
 import './App.css';
 
+// Global layout wrapper for the anti-lag banner
+const GlobalLayout = ({ children }) => {
+  return (
+    <>
+      <div className="fixed-anti-lag-banner">
+        <AntiLagBanner />
+      </div>
+      {children}
+    </>
+  );
+};
+
 function App() {
   useEffect(() => {
     // Scroll to top on initial render
@@ -38,39 +51,41 @@ function App() {
     <AdminProvider>
       <CartProvider>
         <Router>
-          <Routes>
-            {/* Customer-facing Routes */}
-            <Route path="/" element={<Index />} />
-            <Route path="/ps4" element={<PS4 />} />
-            <Route path="/ps5" element={<PS5 />} />
-            <Route path="/pc" element={<PCGame />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/checkout" element={<Checkout />} />
-            
-            {/* Admin Routes */}
-            <Route path="/admin/login" element={<AdminLogin />} />
-            <Route path="/admin" element={<AdminDashboard />} />
-            <Route path="/admin/products" element={<ProductList />} />
-            <Route path="/admin/products/new" element={<ProductForm />} />
-            <Route path="/admin/products/edit/:id" element={<ProductForm />} />
-            <Route path="/admin/pages" element={<PageList />} />
-            <Route path="/admin/pages/new" element={<PageForm />} />
-            <Route path="/admin/pages/edit/:id" element={<PageForm />} />
-            <Route path="/admin/posts" element={<PostList />} />
-            <Route path="/admin/posts/new" element={<PostForm />} />
-            <Route path="/admin/posts/edit/:id" element={<PostForm />} />
-            <Route path="/admin/banners" element={<BannerList />} />
-            <Route path="/admin/banners/new" element={<BannerForm />} />
-            <Route path="/admin/banners/edit/:id" element={<BannerForm />} />
-            <Route path="/admin/homepage" element={<HomepageCustomization />} />
-            <Route path="/admin/settings" element={<Settings />} />
-            
-            {/* Catch all and redirect */}
-            <Route path="/404" element={<NotFound />} />
-            <Route path="*" element={<Navigate to="/404" replace />} />
-          </Routes>
+          <GlobalLayout>
+            <Routes>
+              {/* Customer-facing Routes */}
+              <Route path="/" element={<Index />} />
+              <Route path="/ps4" element={<PS4 />} />
+              <Route path="/ps5" element={<PS5 />} />
+              <Route path="/pc" element={<PCGame />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/checkout" element={<Checkout />} />
+              
+              {/* Admin Routes */}
+              <Route path="/admin/login" element={<AdminLogin />} />
+              <Route path="/admin" element={<AdminDashboard />} />
+              <Route path="/admin/products" element={<ProductList />} />
+              <Route path="/admin/products/new" element={<ProductForm />} />
+              <Route path="/admin/products/edit/:id" element={<ProductForm />} />
+              <Route path="/admin/pages" element={<PageList />} />
+              <Route path="/admin/pages/new" element={<PageForm />} />
+              <Route path="/admin/pages/edit/:id" element={<PageForm />} />
+              <Route path="/admin/posts" element={<PostList />} />
+              <Route path="/admin/posts/new" element={<PostForm />} />
+              <Route path="/admin/posts/edit/:id" element={<PostForm />} />
+              <Route path="/admin/banners" element={<BannerList />} />
+              <Route path="/admin/banners/new" element={<BannerForm />} />
+              <Route path="/admin/banners/edit/:id" element={<BannerForm />} />
+              <Route path="/admin/homepage" element={<HomepageCustomization />} />
+              <Route path="/admin/settings" element={<Settings />} />
+              
+              {/* Catch all and redirect */}
+              <Route path="/404" element={<NotFound />} />
+              <Route path="*" element={<Navigate to="/404" replace />} />
+            </Routes>
+          </GlobalLayout>
+          <Toaster position="top-right" richColors />
         </Router>
-        <Toaster position="top-right" richColors />
       </CartProvider>
     </AdminProvider>
   );

@@ -18,6 +18,8 @@ body {
   padding: 0;
   min-height: 100vh;
   overflow-x: hidden;
+  /* Add padding-top to make room for the fixed anti-lag banner */
+  padding-top: 40px;
 }
 
 /* Remove unwanted white borders */
@@ -115,8 +117,8 @@ table {
   transform: scale(1.05);
 }
 
-/* Anti-lag banner styling */
-.anti-lag-banner {
+/* Fixed anti-lag banner styling for global use */
+.fixed-anti-lag-banner {
   position: fixed;
   top: 0;
   left: 0;
@@ -130,13 +132,13 @@ table {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
-.anti-lag-banner a {
+.fixed-anti-lag-banner a {
   text-decoration: underline;
   font-weight: 600;
   margin-left: 0.5rem;
 }
 
-.anti-lag-banner a:hover {
+.fixed-anti-lag-banner a:hover {
   color: var(--azgaming-black);
   transition: color 0.2s ease-in-out;
 }

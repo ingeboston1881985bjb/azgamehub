@@ -157,7 +157,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, title }) => {
       {/* Main Content */}
       <div className={`${isSidebarOpen ? 'md:ml-64' : 'md:ml-16'} flex-1 transition-all duration-300 w-full`}>
         {/* Header */}
-        <header className="bg-azgaming-black border-b border-azgaming-gray/50 py-3 px-4 md:px-6 flex items-center justify-between sticky top-0 z-20">
+        <header className="bg-azgaming-black border-b border-azgaming-gray/50 py-3 px-4 md:px-6 flex items-center justify-between sticky top-0 z-20 mt-10">
           {/* Mobile menu button */}
           <button 
             className="md:hidden text-white hover:text-azgaming-orange transition-colors"
@@ -179,12 +179,6 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, title }) => {
             </Link>
           </div>
         </header>
-
-        {/* Anti-Lag Banner - Always visible at the top */}
-        <div className="sticky top-12 z-20 bg-gradient-to-r from-azgaming-orange to-azgaming-orange/90 text-white py-2 px-4 text-center text-sm">
-          <strong>Anti-Lag Software:</strong> Boost your PC gaming performance with our anti-lag software. 
-          <a href="/download/anti-lag" className="underline ml-2 font-semibold hover:text-azgaming-black transition-colors">Download Now</a>
-        </div>
 
         {/* Page Content */}
         <main className="p-4 md:p-6">

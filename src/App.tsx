@@ -29,16 +29,16 @@ import Settings from './pages/admin/Settings';
 
 import './App.css';
 
-// Global layout wrapper for the anti-lag banner
-const GlobalLayout = ({ children }) => {
-  return (
-    <>
-      <div className="fixed-anti-lag-banner">
-        <AntiLagBanner />
-      </div>
-      {children}
-    </>
-  );
+// Admin authentication guard
+const RequireAuth = ({ children }) => {
+  const { isAuthenticated } = useAdminContext();
+  const location = useLocation();
+
+  if (!isAuthenticated && location.pathname.startsWith('/admin') && location.pathname !== '/admin/login') {
+    return <Navigate to="/admin/login" state={{ from: location }} replace />;
+  }
+
+  return children;
 };
 
 function App() {
@@ -51,44 +51,108 @@ function App() {
     <AdminProvider>
       <CartProvider>
         <Router>
-          <GlobalLayout>
-            <Routes>
-              {/* Customer-facing Routes */}
-              <Route path="/" element={<Index />} />
-              <Route path="/ps4" element={<PS4 />} />
-              <Route path="/ps5" element={<PS5 />} />
-              <Route path="/pc" element={<PCGame />} />
-              <Route path="/cart" element={<Cart />} />
-              <Route path="/checkout" element={<Checkout />} />
-              
-              {/* Admin Routes */}
-              <Route path="/admin/login" element={<AdminLogin />} />
-              <Route path="/admin" element={<AdminDashboard />} />
-              <Route path="/admin/products" element={<ProductList />} />
-              <Route path="/admin/products/new" element={<ProductForm />} />
-              <Route path="/admin/products/edit/:id" element={<ProductForm />} />
-              <Route path="/admin/pages" element={<PageList />} />
-              <Route path="/admin/pages/new" element={<PageForm />} />
-              <Route path="/admin/pages/edit/:id" element={<PageForm />} />
-              <Route path="/admin/posts" element={<PostList />} />
-              <Route path="/admin/posts/new" element={<PostForm />} />
-              <Route path="/admin/posts/edit/:id" element={<PostForm />} />
-              <Route path="/admin/banners" element={<BannerList />} />
-              <Route path="/admin/banners/new" element={<BannerForm />} />
-              <Route path="/admin/banners/edit/:id" element={<BannerForm />} />
-              <Route path="/admin/homepage" element={<HomepageCustomization />} />
-              <Route path="/admin/settings" element={<Settings />} />
-              
-              {/* Catch all and redirect */}
-              <Route path="/404" element={<NotFound />} />
-              <Route path="*" element={<Navigate to="/404" replace />} />
-            </Routes>
-          </GlobalLayout>
+          <AntiLagBanner />
+          <Routes>
+            {/* Customer-facing Routes */}
+            <Route path="/" element={<Index />} />
+            <Route path="/ps4" element={<PS4 />} />
+            <Route path="/ps5" element={<PS5 />} />
+            <Route path="/pc" element={<PCGame />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/checkout" element={<Checkout />} />
+            
+            {/* Admin Routes */}
+            <Route path="/admin/login" element={<AdminLogin />} />
+            
+            {/* Protected Admin Routes */}
+            <Route path="/admin" element={
+              <RequireAuth>
+                <AdminDashboard />
+              </RequireAuth>
+            } />
+            <Route path="/admin/products" element={
+              <RequireAuth>
+                <ProductList />
+              </RequireAuth>
+            } />
+            <Route path="/admin/products/new" element={
+              <RequireAuth>
+                <ProductForm />
+              </RequireAuth>
+            } />
+            <Route path="/admin/products/edit/:id" element={
+              <RequireAuth>
+                <ProductForm />
+              </RequireAuth>
+            } />
+            <Route path="/admin/pages" element={
+              <RequireAuth>
+                <PageList />
+              </RequireAuth>
+            } />
+            <Route path="/admin/pages/new" element={
+              <RequireAuth>
+                <PageForm />
+              </RequireAuth>
+            } />
+            <Route path="/admin/pages/edit/:id" element={
+              <RequireAuth>
+                <PageForm />
+              </RequireAuth>
+            } />
+            <Route path="/admin/posts" element={
+              <RequireAuth>
+                <PostList />
+              </RequireAuth>
+            } />
+            <Route path="/admin/posts/new" element={
+              <RequireAuth>
+                <PostForm />
+              </RequireAuth>
+            } />
+            <Route path="/admin/posts/edit/:id" element={
+              <RequireAuth>
+                <PostForm />
+              </RequireAuth>
+            } />
+            <Route path="/admin/banners" element={
+              <RequireAuth>
+                <BannerList />
+              </RequireAuth>
+            } />
+            <Route path="/admin/banners/new" element={
+              <RequireAuth>
+                <BannerForm />
+              </RequireAuth>
+            } />
+            <Route path="/admin/banners/edit/:id" element={
+              <RequireAuth>
+                <BannerForm />
+              </RequireAuth>
+            } />
+            <Route path="/admin/homepage" element={
+              <RequireAuth>
+                <HomepageCustomization />
+              </RequireAuth>
+            } />
+            <Route path="/admin/settings" element={
+              <RequireAuth>
+                <Settings />
+              </RequireAuth>
+            } />
+            
+            {/* Catch all and redirect */}
+            <Route path="/404" element={<NotFound />} />
+            <Route path="*" element={<Navigate to="/404" replace />} />
+          </Routes>
           <Toaster position="top-right" richColors />
         </Router>
       </CartProvider>
     </AdminProvider>
   );
 }
+
+// Need to import this after declaring RequireAuth to avoid reference error
+import { useAdmin as useAdminContext } from './context/AdminContext';
 
 export default App;

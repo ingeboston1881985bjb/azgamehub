@@ -10,7 +10,7 @@ const AntiLagBanner: React.FC = () => {
   if (isAdminPage) {
     return null;
   }
-
+  return null;
   return (
     <div className="fixed-anti-lag-banner">
       <strong>Anti-Lag Software:</strong> Boost your PC gaming performance with our anti-lag software. 

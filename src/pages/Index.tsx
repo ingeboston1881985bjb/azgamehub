@@ -132,7 +132,7 @@ const Index: React.FC = () => {
             title="Boost Your PC Gaming Performance"
             subtitle="Say goodbye to lag with our premium anti-lag software. Play smoother and faster!"
             imageUrl={bannerImages.antiLagSoftware}
-            buttonText="Learn More"
+            buttonText="Download Now"
             buttonLink="/pc"
             gradient="from-azgaming-black/90 via-azgaming-black/70 to-transparent"
             align="right"

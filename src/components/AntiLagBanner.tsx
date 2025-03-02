@@ -11,12 +11,14 @@ const AntiLagBanner: React.FC = () => {
     return null;
   }
   return null;
+  /*
   return (
     <div className="fixed-anti-lag-banner">
       <strong>Anti-Lag Software:</strong> Boost your PC gaming performance with our anti-lag software. 
       <a href="/download/anti-lag" className="underline ml-2 font-semibold hover:text-azgaming-black transition-colors">Download Now</a>
     </div>
   );
+  */
 };
 
 export default AntiLagBanner;
